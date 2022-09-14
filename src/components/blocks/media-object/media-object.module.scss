@@ -1,0 +1,70 @@
+@import '../../../styles/styles';
+
+.media-object {
+  display: flex;
+  margin-top: $base-spacing;
+  height: auto;
+
+
+  .image-container {
+    position: relative;
+    flex-grow: 1;
+    overflow: hidden;
+
+    @media (max-width: $breakpoint-md) {
+      flex-grow: 0;
+      overflow: visible;
+    }
+
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      transform: translate(-50%,-50%);
+
+      @media (max-width: $breakpoint-md) {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+      }
+    }
+  }
+
+   > div:not(.image-container) {
+    padding: ($base-spacing * 2);
+  }
+
+  &[data-alignment='top-right'] {
+    flex-direction: row-reverse;
+
+    @media (max-width: $breakpoint-md) {
+      flex-direction: column;
+    }
+  }
+
+  &[data-alignment='top-left'] {
+    flex-direction: row;
+
+    @media (max-width: $breakpoint-md) {
+      flex-direction: column;
+    }
+  }
+
+  &[data-alignment='bottom-right'] {
+    flex-direction: row-reverse;
+
+    @media (max-width: $breakpoint-md) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &[data-alignment='bottom-left'] {
+    flex-direction: row;
+
+    @media (max-width: $breakpoint-md) {
+      flex-direction: column-reverse;
+    }
+  }
+}

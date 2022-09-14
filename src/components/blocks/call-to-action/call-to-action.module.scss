@@ -1,0 +1,20 @@
+@import '../../../styles/styles';
+
+.call-to-action {
+  padding: ($base-spacing * 3);
+  width: 100%;
+  background-color: color(neutral, lightest);
+  text-align: center;
+  h2::after {
+    display: block;
+    margin: 20px auto 0;
+    width: 100px;
+    height: 1px;
+    background-color: color(neutral, light);
+    content: '';
+  }
+  p {
+    margin: ($base-spacing * 2) auto;
+    max-width: 800px;
+  }
+}
