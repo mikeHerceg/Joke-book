@@ -15,15 +15,26 @@ export function Home({ ...props }) {
 
     const [settings, setSettings] = useState(initialSettings);
 
-    const [error, setError] = useState<string>();
+    const [error, setError] = useState<string | null>();
 
-    const handleJokes = (jokeParams?: JokeParams) => {
-        getJokes(jokeParams).then((data) => {
-            if (!data.error) {
-                return setJokes(data.jokes);
-            }
-            return setError("could not retrieve jokes");
-        });
+    const [loading, setLoading] = useState<boolean>(false);
+
+
+    const handleJokes = async (jokeParams?: JokeParams) => {
+        setLoading(true)
+        const {jokes, error} = await getJokes(jokeParams)
+       console.log({jokes, error})
+       if (error){
+           setError(`sorry we couldn't retrieve more jokes :(`)
+           setLoading(false);
+           return
+       }
+       if (jokes){
+            setError(null)
+           setJokes(jokes)
+           setLoading(false)
+       }
+
     };
     useEffect(() => {
         handleJokes(settings);
@@ -38,15 +49,19 @@ export function Home({ ...props }) {
             <>
                 <ToggleButton onClick={()=>{setSettings({...settings,safeMode:!settings.safeMode})}} text={`SafeMode ${settings.safeMode ? 'on' : 'off'}`} defaultValue={settings.safeMode} />
                 <Button onClick={() => handleJokes(settings)} text="Get New Jokes" />
-                {error && error}
+                {loading ? 'loading...' :
+                    <>
+                        {error && error}
 
-                {jokes.length > 0 && (
-                    <Grid>
-                        {jokes.map((jokeObj, index) => (
-                            <JokeCard jokeData={jokeObj} key={index} />
-                        ))}
-                    </Grid>
-                )}
+                        {jokes.length > 0 && (
+                            <Grid>
+                                {jokes.map((jokeObj, index) => (
+                                    <JokeCard jokeData={jokeObj} key={index} />
+                                ))}
+                            </Grid>
+                        )}
+                    </>
+                }
             </>
         </Page>
     );

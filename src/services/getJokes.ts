@@ -1,6 +1,6 @@
 import { JokeParams } from "../generic.types";
 
-export const getJokes = (jokeParams?: JokeParams) => {
+export const getJokes = async (jokeParams?: JokeParams) => {
     let url = `https://v2.jokeapi.dev/joke/Any?amount=10`;
     if (jokeParams) {
         const { amount, categories, safeMode, search } = jokeParams;
@@ -9,7 +9,7 @@ export const getJokes = (jokeParams?: JokeParams) => {
             url = url+`&safe-mode`
         }
     }
-    return fetch(url)
-        .then(res => res.json())
-        .catch(err => console.log(err));
+    const res  = await fetch(url);
+    const data = await res.json();
+    return data
 };
