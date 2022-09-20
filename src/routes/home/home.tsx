@@ -19,6 +19,7 @@ export function Home({ ...props }) {
                             safeMode: !settings.safeMode,
                         });
                     }}
+                    name="safeMode"
                     text={`SafeMode ${settings.safeMode ? "on" : "off"}`}
                     defaultValue={settings.safeMode}
                 />
