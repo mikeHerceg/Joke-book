@@ -4,7 +4,7 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
-import { Home } from './routes/home';
+import { Home } from './routes';
 
 
 function App() {

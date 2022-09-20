@@ -9,6 +9,11 @@ export enum Tags {
  span = 'span',
 }
 
+export enum JokeType {
+    TwoPart = "twopart",
+    Single = "single",
+}
+
 export type Category = 'programming' |
 'misc' |
 'dark' |
@@ -22,3 +27,10 @@ export type JokeParams = {
     safeMode?: boolean,
     search?:string,
 };
+
+export type JokeModel = {
+    type: JokeType;
+    joke: string;
+    setup: string;
+    delivery: string;
+}

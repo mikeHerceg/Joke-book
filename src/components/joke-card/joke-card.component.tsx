@@ -1,23 +1,36 @@
 import React from "react";
 import styles from "./joke-card.module.scss";
 import { Card } from "../atoms";
-
-enum JokeType {
-    TwoPart = "twopart",
-    Single = "single",
-}
+import { JokeModel, JokeType } from "../../generic.types";
 
 interface JokeCardProps {
-    jokeData: {
-        type: JokeType;
-        joke: string;
-        setup: string;
-        delivery: string;
-    };
+    jokeData: JokeModel;
+}
+
+function JokeContent({ jokeData }: JokeCardProps) {
+    const { type, joke, setup, delivery } = jokeData;
+    if (type === JokeType.Single) {
+        return (
+            <>
+                <h3>One Liner Joke</h3>
+                <p>{joke}</p>
+            </>
+        );
+    }
+    return (
+        <>
+            <h3>Two Part Joke</h3>
+            <p>
+                <b>Setup</b>: {setup}
+            </p>
+            <p>
+                <b>Punchline</b>: {delivery}
+            </p>
+        </>
+    );
 }
 
 export function JokeCard({ jokeData, ...props }: JokeCardProps) {
-    const { type, joke, setup, delivery } = jokeData;
     return (
         <Card>
             <div
@@ -25,15 +38,7 @@ export function JokeCard({ jokeData, ...props }: JokeCardProps) {
                 data-testid="joke-card"
                 className={styles["joke-card"]}
             >
-                {type === JokeType.Single ? (
-                    <p>{joke}</p>
-                ) : (
-                    <p>
-                        {setup}
-                        <br />
-                        {delivery}
-                    </p>
-                )}
+                <JokeContent jokeData={jokeData} />
             </div>
         </Card>
     );
