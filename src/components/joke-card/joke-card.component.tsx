@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./joke-card.module.scss";
+import {motion} from 'framer-motion';
 import { Card } from "../atoms";
 import { JokeModel, JokeType } from "../../generic.types";
 
@@ -31,15 +32,29 @@ function JokeContent({ jokeData }: JokeCardProps) {
 }
 
 export function JokeCard({ jokeData, ...props }: JokeCardProps) {
+    const jokeVariants = {
+        initial:{
+            y:20,
+            opacity:0,
+        },
+        animate:{
+            y:0,
+            opacity:1,
+        }
+    }
     return (
-        <Card>
-            <div
-                {...props}
-                data-testid="joke-card"
-                className={styles["joke-card"]}
-            >
-                <JokeContent jokeData={jokeData} />
-            </div>
-        </Card>
+        <motion.div
+            variants={jokeVariants}
+        >
+            <Card style={{height:'100%'}}>
+                <div
+                    {...props}
+                    data-testid="joke-card"
+                    className={styles["joke-card"]}
+                >
+                    <JokeContent jokeData={jokeData} />
+                </div>
+            </Card>
+        </motion.div>
     );
 }

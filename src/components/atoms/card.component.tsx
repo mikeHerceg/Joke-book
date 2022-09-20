@@ -2,12 +2,13 @@ import styles from './atoms.module.scss';
 
 
 interface CardProps {
-    children:JSX.Element
+    children:JSX.Element,
+    style?: React.CSSProperties;
 }
 
-export function Card({ children, ...props }:CardProps) {
+export function Card({ children,style}:CardProps) {
   return (
-    <div {...props} className={styles.card}>
+    <div style={style} className={styles.card}>
       {children}
     </div>
   );

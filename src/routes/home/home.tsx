@@ -31,7 +31,6 @@ export function Home({ ...props }) {
                 ) : (
                     <>
                         {error && error}
-
                         {jokeList.length > 0 && (
                             <Grid>
                                 {jokeList.map((jokeObj, index) => (
